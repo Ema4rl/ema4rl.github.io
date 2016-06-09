@@ -13,7 +13,7 @@
     $O.js('CSS.load.min.js');
     $O.js('vendor/jquery.js').wait(function () {
         (function ($) {
-            $O.js('vendor/bootstrap.js').wait(function () {
+            $O.js('vendor/bootstrap.min.js').wait(function () {
                 // init tooltip
                 $('[data-toggle="tooltip"]').tooltip();
             }); // load bootstrap js without delay
