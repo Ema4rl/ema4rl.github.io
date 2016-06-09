@@ -302,6 +302,7 @@ blockquote p,
 
 #header .header-logo {
     height: 50px;
+    cursor: pointer;
 }
 
 #header .header-body-fixed {

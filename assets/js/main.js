@@ -80,6 +80,12 @@
                 }, '1200');
             });
 
+            // data-src controller
+            $('img[data-src]').each(function () {
+                var $this = $(this);
+                $this.attr('src', $this.data('src'));
+            });
+
             // Make sure all external URLs are pointed to a separate named tab
             $mainUrls.filter(function() {
                 return this.hostname && this.hostname !== l.hostname;
