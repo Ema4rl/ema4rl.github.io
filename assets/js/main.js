@@ -13,17 +13,11 @@
     $O.js('CSS.load.min.js');
     $O.js('vendor/jquery.js').wait(function () {
         (function ($) {
-            $O.js('vendor/bootstrap.min.js').wait(function () {
-                // init tooltip
-                $('[data-toggle="tooltip"]').tooltip();
-            }); // load bootstrap js without delay
-
-            const spNav = '.navbar-default #navbar-full';
-
             var $window = $(win),
                 $dropdown = $('.dropdown'),
                 $header = $("#header"),
                 lastScroll = 0,
+                spNav = '.navbar-default #navbar-full',
                 $mainUrls = $('a:not([href="#"]):not([target]):not([download])'),
                 $header_fixed = $("#header-body-fixed"),
                 full_screen_block = function () {
@@ -50,6 +44,33 @@
                     }
                     lastScroll = st;
                 };
+
+            // load bootstrap js without delay
+            $O.js('vendor/bootstrap.min.js').wait(function () {
+                // init tooltip
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+
+            // ensure document is ready...
+            $O.ready(function () {
+                // remove pre-loader
+                $("#status").fadeOut();
+                $("#preloader").delay(450).fadeOut();
+
+                // singlePageNav init
+                $O.test(spNav).js('vendor/jquery.singlePageNav.min.js')
+                    .wait(function(){
+                        $(spNav).singlePageNav({
+                            currentClass: 'current',
+                            updateHash: true,
+                            speed: 750,
+                            offset: 0,
+                            threshold: 120,
+                            filter: ':not(.external)',
+                            easing: 'swing'
+                        });
+                    });
+            });
 
             // Full screen divs
             full_screen_block();
@@ -90,27 +111,6 @@
             $mainUrls.filter(function() {
                 return this.hostname && this.hostname !== l.hostname;
             }).prop('target', 'ema4rl_git');
-
-            // ensure document is ready...
-            $O.ready(function () {
-                // remove pre-loader
-                $("#status").fadeOut();
-                $("#preloader").delay(450).fadeOut();
-
-                // singlePageNav init
-                $O.test(spNav).js('vendor/jquery.singlePageNav.min.js')
-                    .wait(function(){
-                        $(spNav).singlePageNav({
-                            currentClass: 'current',
-                            updateHash: true,
-                            speed: 750,
-                            offset: 0,
-                            threshold: 120,
-                            filter: ':not(.external)',
-                            easing: 'swing'
-                        });
-                    });
-            });
 
             // init after window has loaded
             $window.on('load', function () {
